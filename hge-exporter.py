@@ -444,32 +444,35 @@ class HgeScene():
             o.save(save_file)
 
 
-file = open("/home/thany/QtCreator/build-HGE-Desktop-Debug/hge-sample.hge", "wb")
-scene = HgeScene()
-for obj in bpy.data.objects:
-    if obj.type == OBJECT_TYPE_STRING_MESH:
-        if prefix_check(obj.name, PREFIX_OCCLUSION_TEST):
-            continue
-        elif prefix_check(obj.name, PREFIX_SKIN):
-            continue
-        else:
-            if obj.parent is not None:
-                print("Error: Your static mesh must not have parent.")
-                exit(0)
-            geo = HgeGeometry(obj)
-            scene.add_object(geo)
-    elif obj.type == OBJECT_TYPE_STRING_ARMATURE:
-        print("clvmdfkjkfjkfjdkhvifjdkvhkj")
-        if prefix_check(obj.name, PREFIX_SKELETON):
-            print("Skeleton Armature is not supported yet")
-            exit(1)
-        else:
-            scene.add_object(HgeArmature(obj))
-# Endian
-if sys.byteorder == 'little':
-    file.write(ctypes.c_char(1))
-else:
-    file.write(ctypes.c_char(0))
-scene.save(file)
-file.close()
-scene = None
+def main():
+    file = open("/home/thany/QtCreator/build-HGE-Desktop-Debug/hge-sample.hge", "wb")
+    scene = HgeScene()
+    for obj in bpy.data.objects:
+        if obj.type == OBJECT_TYPE_STRING_MESH:
+            if prefix_check(obj.name, PREFIX_OCCLUSION_TEST):
+                continue
+            elif prefix_check(obj.name, PREFIX_SKIN):
+                continue
+            else:
+                if obj.parent is not None:
+                    print("Error: Your static mesh must not have parent.")
+                    exit(0)
+                geo = HgeGeometry(obj)
+                scene.add_object(geo)
+        elif obj.type == OBJECT_TYPE_STRING_ARMATURE:
+            print("clvmdfkjkfjkfjdkhvifjdkvhkj")
+            if prefix_check(obj.name, PREFIX_SKELETON):
+                print("Skeleton Armature is not supported yet")
+                exit(1)
+            else:
+                scene.add_object(HgeArmature(obj))
+    # Endian
+    if sys.byteorder == 'little':
+        file.write(ctypes.c_char(1))
+    else:
+        file.write(ctypes.c_char(0))
+    scene.save(file)
+    file.close()
+    scene = None
+
+main()
