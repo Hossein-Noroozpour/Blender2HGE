@@ -460,7 +460,6 @@ def main():
                 geo = HgeGeometry(obj)
                 scene.add_object(geo)
         elif obj.type == OBJECT_TYPE_STRING_ARMATURE:
-            print("clvmdfkjkfjkfjdkhvifjdkvhkj")
             if prefix_check(obj.name, PREFIX_SKELETON):
                 print("Skeleton Armature is not supported yet")
                 exit(1)
